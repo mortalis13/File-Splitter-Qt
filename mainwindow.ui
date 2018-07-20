@@ -81,7 +81,7 @@
           </font>
          </property>
          <property name="text">
-          <string>J:\Programming\_projects\qt\code\_data\file_to_split_utf16.dsl</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -171,7 +171,7 @@
           </font>
          </property>
          <property name="text">
-          <string>temp</string>
+          <string/>
          </property>
         </widget>
        </item>

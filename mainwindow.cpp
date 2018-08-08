@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     addShortcuts();
 
     setWindowTitle("File Splitter v1.0.1");
-    
     splitStarted = false;
 }
 
@@ -33,23 +32,23 @@ void MainWindow::addActions() {
 }
 
 void MainWindow::addShortcuts() {
-  QShortcut *bRun=new QShortcut(QKeySequence("F5"), this);
+  QShortcut *bRun = new QShortcut(QKeySequence("F5"), this);
   connect( bRun, SIGNAL(activated()), ui->bRun, SLOT(click()) );
 
-  QShortcut *bBrowseIn=new QShortcut(QKeySequence("F3"), this);
+  QShortcut *bBrowseIn = new QShortcut(QKeySequence("F3"), this);
   connect( bBrowseIn, SIGNAL(activated()), ui->bBrowseIn, SLOT(click()) );
 
-  QShortcut *bBrowseOut=new QShortcut(QKeySequence("F2"), this);
+  QShortcut *bBrowseOut = new QShortcut(QKeySequence("F2"), this);
   connect( bBrowseOut, SIGNAL(activated()), ui->bBrowseOut, SLOT(click()) );
 
-  QShortcut *quit=new QShortcut(QKeySequence("Esc"), this);
+  QShortcut *quit = new QShortcut(QKeySequence("Esc"), this);
   connect( quit, SIGNAL(activated()), this, SLOT(close()) );
 }
 
 
 // ---------------------------------------------- button handlers ----------------------------------------------
 
-void MainWindow::bRunClick(){
+void MainWindow::bRunClick() {
   if (splitStarted && splitterThread) {
     splitterThread->stop();
     return;
@@ -61,7 +60,7 @@ void MainWindow::bRunClick(){
   QString inputFile = ui->lePath->text();
   
   QString outDir = ui->leOutDir->text();
-  if(outDir.trimmed().length() == 0){
+  if (outDir.trimmed().length() == 0) {
     QString inDir = ui->lePath->text();
     QFileInfo info(inDir);
     outDir = info.absolutePath();
@@ -73,7 +72,7 @@ void MainWindow::bRunClick(){
   createDirs(outDir);
   
   QString outFilename = ui->leOutFilename->text();
-  if(outFilename.trimmed().length() == 0){
+  if (outFilename.trimmed().length() == 0) {
     QFileInfo info(inputFile);
     outFilename = info.fileName();
   }
@@ -101,23 +100,23 @@ void MainWindow::splitThreadFinished() {
 }
 
 
-void MainWindow::bBrowseInClick(){
-  QString dir=path();
-  if(dir.length()==0) dir=QDir::currentPath();
+void MainWindow::bBrowseInClick() {
+  QString dir = path();
+  if (dir.length() == 0) dir = QDir::currentPath();
 
   QString filename = QFileDialog::getOpenFileName(this, tr("Select a text file"), dir);
-  if( !filename.isNull() )
+  if ( !filename.isNull() )
   {
     setPath(filename);
   }
 }
 
-void MainWindow::bBrowseOutClick(){
-  QString dir=path();
-  if(dir.length()==0) dir=QDir::currentPath();
+void MainWindow::bBrowseOutClick() {
+  QString dir = path();
+  if (dir.length() == 0) dir = QDir::currentPath();
 
   QString dirname = QFileDialog::getExistingDirectory(this, tr("Select a Directory"), dir);
-  if( !dirname.isNull() )
+  if ( !dirname.isNull() )
   {
     setOutPath(dirname);
   }
@@ -126,15 +125,15 @@ void MainWindow::bBrowseOutClick(){
 
 // --------------------------------------------- set/get ---------------------------------------------
 
-QString MainWindow::path(){
+QString MainWindow::path() {
   return ui->lePath->text();
 }
 
-void MainWindow::setPath(QString path){
+void MainWindow::setPath(QString path) {
   ui->lePath->setText(path);
 }
 
-void MainWindow::setOutPath(QString path){
+void MainWindow::setOutPath(QString path) {
   ui->leOutDir->setText(path);
 }
 
@@ -142,14 +141,14 @@ void MainWindow::setOutPath(QString path){
 // --------------------------------------------- service ---------------------------------------------
 
 void MainWindow::status(QString msg) {
-  if(msg == ""){
+  if (msg == "") {
     ui->statusBar->clearMessage();
     return;
   }
   ui->statusBar->showMessage("[" + msg + "]");
 }
 
-QString MainWindow::formatPath(QString path){
+QString MainWindow::formatPath(QString path) {
   QString res = "";
   QFileInfo info(path);
   res = info.absoluteFilePath();

@@ -7,7 +7,7 @@ SplitterThread::SplitterThread(QObject *parent) :
 
 void SplitterThread::run() {
   fstream textFile(inputFile.c_str(), ios::binary | ios::in);
-  if(!textFile.is_open()){
+  if (!textFile.is_open()) {
     qFatal("cannot open file");
     return;
   }
@@ -34,14 +34,14 @@ void SplitterThread::run() {
   
   char c0;
 
-  while(textFile){
-    if(stopThread) break;
+  while(textFile) {
+    if (stopThread) break;
     
     lines = 0;
     
     string outFileC = outputFile + "_" + to_string(count++) + ".txt";
     fstream outFile(outFileC.c_str(), ios::binary | ios::out);
-    if(!outFile.is_open()){
+    if (!outFile.is_open()) {
       qFatal("cannot open file");
       return;
     }
@@ -50,8 +50,8 @@ void SplitterThread::run() {
       textFile.read(&c0, 1);
       outFile.write(&c0, 1);
       
-      if(!textFile){
-        if(lines == 0){
+      if (!textFile) {
+        if (lines == 0) {
           outFile.close();
           remove(outFileC.c_str());
         }
@@ -69,7 +69,7 @@ void SplitterThread::run() {
       }
     }
     
-    if(finish) break;
+    if (finish) break;
     outFile.close();
   }
   
@@ -79,7 +79,7 @@ void SplitterThread::run() {
 
 void SplitterThread::copy_Old() {
   fstream textFileBin(inputFile.c_str(), ios::binary | ios::in);
-  if(!textFileBin.is_open()){
+  if (!textFileBin.is_open()) {
     qFatal("cannot open file");
     return;
   }
@@ -114,21 +114,21 @@ void SplitterThread::copy_Old() {
   int count = 1;
   int filesLimit = 10;
 
-  while(textFile){
-    if(stopThread) break;
+  while(textFile) {
+    if (stopThread) break;
 
     string outFileC = outputFile + "_" + to_string(count++) + ".txt";
     fstream outFile(outFileC.c_str(), ios::out);
-    if(!outFile.is_open()){
+    if (!outFile.is_open()) {
       qFatal("cannot open file");
       return;
     }
 
-    for(int i=0; i<linesCount; ++i){
+    for (int i=0; i<linesCount; ++i) {
       getline(textFile, str);
       
-      if(!textFile){
-        if(i == 0){
+      if (!textFile) {
+        if (i == 0) {
           outFile.close();
           remove(outFileC.c_str());
         }
@@ -137,12 +137,12 @@ void SplitterThread::copy_Old() {
         break;
       }
       
-      // if(i != linesCount-1) str += '\n';
-      if(i != linesCount-1) str += sep;
+      // if (i != linesCount-1) str += '\n';
+      if (i != linesCount-1) str += sep;
       outFile << str;
     }
     
-    if(finish) break;
+    if (finish) break;
     outFile.close();
   }
 
